@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adobe Archi & Engg Consultants - Shop</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6C4134',secondary:'#D4AF37'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.font-playfair {
+font-family: 'Playfair Display', serif;
+}
+.cart-slide {
+transition: transform 0.3s ease-in-out;
+}
+.cart-overlay {
+transition: opacity 0.3s ease-in-out;
+}
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.quantity-input {
+  appearance: textfield;
+  -webkit-appearance: textfield; /* For Safari and older Chrome */
+  -moz-appearance: textfield;    /* For Firefox */
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800 w-[375px] min-h-[762px] relative">
+<!-- Header/Nav Bar -->
+<header class="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+<div class="flex items-center justify-between px-4 py-3">
+    <a href="/" data-readdy="true" class="w-8 h-8 flex items-center justify-center cursor-pointer mr-3">
+<i class="ri-arrow-left-line ri-lg text-gray-700 "></i>
+<div class="font-['Pacifico'] text-primary text-2xl">logo</div>
+</a>
+<div class="flex items-center space-x-4">
+<button id="cartToggleBtn" class="relative w-10 h-10 flex items-center justify-center bg-primary rounded-full cursor-pointer">
+<i class="ri-shopping-cart-line text-white ri-lg"></i>
+<span id="cartCount" class="absolute -top-1 -right-1 bg-secondary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-16 pb-20 px-4">
+<div class="py-6">
+<div class="relative mb-6">
+<input type="text" id="searchInput" placeholder="Search products..." class="w-full h-12 pl-12 pr-4 bg-white border border-gray-200 rounded-button text-sm focus:outline-none focus:border-primary">
+<i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+<h1 class="text-2xl font-bold text-primary mb-2">Our Products</h1>
+<p class="text-gray-600 mb-6">Discover our premium architectural products and designs</p>
+<!-- Product Grid -->
+<div class="grid grid-cols-2 gap-4 mb-8">
+<!-- Product 1 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden" data-product-id="1">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Modern%20minimalist%20architectural%20model%20kit%20with%20white%20foam%20boards%2C%20precision%20cutting%20tools%2C%20and%20scale%20figures%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=1&orientation=squarish" alt="Architectural Model Kit" class="w-full h-40 object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-3">
+<h3 class="font-playfair text-white text-base font-medium">Architectural Model Kit</h3>
+<p class="text-secondary font-bold">$149.99</p>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between mb-2">
+<select class="text-xs bg-gray-100 border border-gray-200 rounded-button py-1 px-2 w-full" data-variant-selector>
+<option value="basic">Basic Kit</option>
+<option value="premium">Premium Kit</option>
+<option value="professional">Professional Kit</option>
+</select>
+</div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-decrease cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input type="number" value="1" min="1" max="99" class="w-8 h-8 text-center border-none quantity-input" data-quantity>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-increase cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-xs border border-primary text-primary py-2 px-3 rounded-button hover:bg-gray-50 transition-colors quick-view-btn cursor-pointer">Quick View</button>
+<button class="text-xs bg-primary text-white py-2 px-3 rounded-button hover:bg-[#0E0E10] transition-colors add-to-cart-btn cursor-pointer" data-product-id="1" data-product-name="Architectural Model Kit" data-product-price="149.99" data-product-image="https://readdy.ai/api/search-image?query=Modern%20minimalist%20architectural%20model%20kit%20with%20white%20foam%20boards%2C%20precision%20cutting%20tools%2C%20and%20scale%20figures%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=1&orientation=squarish">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden" data-product-id="2">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Premium%20architectural%20blueprint%20set%20with%20detailed%20floor%20plans%20and%20elevations%2C%20rolled%20up%20with%20elegant%20binding%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=2&orientation=squarish" alt="Blueprint Collection" class="w-full h-40 object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-3">
+<h3 class="font-playfair text-white text-base font-medium">Blueprint Collection</h3>
+<p class="text-secondary font-bold">$89.99</p>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between mb-2">
+<select class="text-xs bg-gray-100 border border-gray-200 rounded-button py-1 px-2 w-full" data-variant-selector>
+<option value="residential">Residential</option>
+<option value="commercial">Commercial</option>
+<option value="industrial">Industrial</option>
+</select>
+</div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-decrease cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input type="number" value="1" min="1" max="99" class="w-8 h-8 text-center border-none quantity-input" data-quantity>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-increase cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-xs border border-primary text-primary py-2 px-3 rounded-button hover:bg-gray-50 transition-colors quick-view-btn cursor-pointer">Quick View</button>
+<button class="text-xs bg-primary text-white py-2 px-3 rounded-button hover:bg-[#0E0E10] transition-colors add-to-cart-btn cursor-pointer" data-product-id="2" data-product-name="Blueprint Collection" data-product-price="89.99" data-product-image="https://readdy.ai/api/search-image?query=Premium%20architectural%20blueprint%20set%20with%20detailed%20floor%20plans%20and%20elevations%2C%20rolled%20up%20with%20elegant%20binding%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=2&orientation=squarish">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden" data-product-id="3">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Digital%203D%20architectural%20rendering%20software%20package%2C%20showing%20modern%20building%20visualization%20on%20screen%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=3&orientation=squarish" alt="3D Rendering Software" class="w-full h-40 object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-3">
+<h3 class="font-playfair text-white text-base font-medium">3D Rendering Software</h3>
+<p class="text-secondary font-bold">$299.99</p>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between mb-2">
+<select class="text-xs bg-gray-100 border border-gray-200 rounded-button py-1 px-2 w-full" data-variant-selector>
+<option value="standard">Standard License</option>
+<option value="pro">Pro License</option>
+<option value="enterprise">Enterprise License</option>
+</select>
+</div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-decrease cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input type="number" value="1" min="1" max="99" class="w-8 h-8 text-center border-none quantity-input" data-quantity>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-increase cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-xs border border-primary text-primary py-2 px-3 rounded-button hover:bg-gray-50 transition-colors quick-view-btn cursor-pointer">Quick View</button>
+<button class="text-xs bg-primary text-white py-2 px-3 rounded-button hover:bg-[#0E0E10] transition-colors add-to-cart-btn cursor-pointer" data-product-id="3" data-product-name="3D Rendering Software" data-product-price="299.99" data-product-image="https://readdy.ai/api/search-image?query=Digital%203D%20architectural%20rendering%20software%20package%2C%20showing%20modern%20building%20visualization%20on%20screen%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=3&orientation=squarish">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden" data-product-id="4">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Precision%20architectural%20drafting%20tools%20set%20with%20metal%20compass%2C%20rulers%2C%20and%20technical%20pens%20in%20leather%20case%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=4&orientation=squarish" alt="Drafting Tool Set" class="w-full h-40 object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-3">
+<h3 class="font-playfair text-white text-base font-medium">Drafting Tool Set</h3>
+<p class="text-secondary font-bold">$129.99</p>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between mb-2">
+<select class="text-xs bg-gray-100 border border-gray-200 rounded-button py-1 px-2 w-full" data-variant-selector>
+<option value="student">Student Set</option>
+<option value="professional">Professional Set</option>
+<option value="master">Master Set</option>
+</select>
+</div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-decrease cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input type="number" value="1" min="1" max="99" class="w-8 h-8 text-center border-none quantity-input" data-quantity>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-increase cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-xs border border-primary text-primary py-2 px-3 rounded-button hover:bg-gray-50 transition-colors quick-view-btn cursor-pointer">Quick View</button>
+<button class="text-xs bg-primary text-white py-2 px-3 rounded-button hover:bg-[#0E0E10] transition-colors add-to-cart-btn cursor-pointer" data-product-id="4" data-product-name="Drafting Tool Set" data-product-price="129.99" data-product-image="https://readdy.ai/api/search-image?query=Precision%20architectural%20drafting%20tools%20set%20with%20metal%20compass%2C%20rulers%2C%20and%20technical%20pens%20in%20leather%20case%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=4&orientation=squarish">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product 5 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden" data-product-id="5">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Architectural%20scale%20model%20materials%20kit%20with%20miniature%20trees%2C%20people%2C%20and%20landscape%20elements%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=5&orientation=squarish" alt="Scale Model Materials" class="w-full h-40 object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-3">
+<h3 class="font-playfair text-white text-base font-medium">Scale Model Materials</h3>
+<p class="text-secondary font-bold">$79.99</p>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between mb-2">
+<select class="text-xs bg-gray-100 border border-gray-200 rounded-button py-1 px-2 w-full" data-variant-selector>
+<option value="landscape">Landscape Set</option>
+<option value="urban">Urban Set</option>
+<option value="interior">Interior Set</option>
+</select>
+</div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-decrease cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input type="number" value="1" min="1" max="99" class="w-8 h-8 text-center border-none quantity-input" data-quantity>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-increase cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-xs border border-primary text-primary py-2 px-3 rounded-button hover:bg-gray-50 transition-colors quick-view-btn cursor-pointer">Quick View</button>
+<button class="text-xs bg-primary text-white py-2 px-3 rounded-button hover:bg-[#0E0E10] transition-colors add-to-cart-btn cursor-pointer" data-product-id="5" data-product-name="Scale Model Materials" data-product-price="79.99" data-product-image="https://readdy.ai/api/search-image?query=Architectural%20scale%20model%20materials%20kit%20with%20miniature%20trees%2C%20people%2C%20and%20landscape%20elements%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=5&orientation=squarish">Add to Cart</button>
+</div>
+</div>
+</div>
+<!-- Product 6 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden" data-product-id="6">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=Digital%20architectural%20templates%20and%20CAD%20blocks%20collection%20shown%20on%20tablet%20device%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=6&orientation=squarish" alt="Digital Templates" class="w-full h-40 object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-3">
+<h3 class="font-playfair text-white text-base font-medium">Digital Templates</h3>
+<p class="text-secondary font-bold">$59.99</p>
+</div>
+</div>
+<div class="p-3">
+<div class="flex items-center justify-between mb-2">
+<select class="text-xs bg-gray-100 border border-gray-200 rounded-button py-1 px-2 w-full" data-variant-selector>
+<option value="residential">Residential Pack</option>
+<option value="commercial">Commercial Pack</option>
+<option value="complete">Complete Pack</option>
+</select>
+</div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-decrease cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input type="number" value="1" min="1" max="99" class="w-8 h-8 text-center border-none quantity-input" data-quantity>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 quantity-increase cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-xs border border-primary text-primary py-2 px-3 rounded-button hover:bg-gray-50 transition-colors quick-view-btn cursor-pointer">Quick View</button>
+<button class="text-xs bg-primary text-white py-2 px-3 rounded-button hover:bg-[#0E0E10] transition-colors add-to-cart-btn cursor-pointer" data-product-id="6" data-product-name="Digital Templates" data-product-price="59.99" data-product-image="https://readdy.ai/api/search-image?query=Digital%20architectural%20templates%20and%20CAD%20blocks%20collection%20shown%20on%20tablet%20device%2C%20professional%20product%20photography%20on%20neutral%20background%2C%20clean%20composition%2C%20high%20detail%2C%20600x600&width=600&height=600&seq=6&orientation=squarish">Add to Cart</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Cart Overlay -->
+<div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden cart-overlay">
+<!-- Cart Slide Panel -->
+<div id="cartPanel" class="fixed top-0 right-0 w-[300px] h-full bg-white shadow-lg transform translate-x-full cart-slide flex flex-col">
+<!-- Cart Header -->
+<div class="flex items-center justify-between p-4 border-b">
+<h2 class="text-lg font-bold text-primary">Your Cart</h2>
+<button id="closeCartBtn" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<!-- Cart Items -->
+<div id="cartItems" class="flex-1 overflow-y-auto p-4">
+<div class="text-center text-gray-500 py-8" id="emptyCartMessage">
+<i class="ri-shopping-cart-line ri-3x mb-2"></i>
+<p>Your cart is empty</p>
+</div>
+<!-- Cart items will be added here dynamically -->
+</div>
+<!-- Cart Footer -->
+<div class="border-t p-4">
+<div class="flex justify-between mb-2">
+<span>Subtotal:</span>
+<span id="cartSubtotal" class="font-bold">$0.00</span>
+</div>
+<div class="flex justify-between mb-4">
+<span>Tax (8%):</span>
+<span id="cartTax" class="font-bold">$0.00</span>
+</div>
+<div class="flex justify-between mb-4 text-lg">
+<span>Total:</span>
+<span id="cartTotal" class="font-bold text-primary">$0.00</span>
+</div>
+<button id="checkoutBtn" class="w-full bg-primary text-white py-3 rounded-button hover:bg-[#0E0E10] transition-colors cursor-pointer !rounded-button">
+Proceed to Checkout
+</button>
+</div>
+</div>
+</div>
+<!-- Quick View Modal -->
+<div id="quickViewModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-lg w-[340px] max-h-[600px] overflow-hidden">
+<div class="relative">
+<img id="modalProductImage" src="" alt="Product" class="w-full h-48 object-cover object-top">
+<button id="closeModalBtn" class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-md text-gray-500 hover:text-primary cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="p-4">
+<h3 id="modalProductName" class="font-playfair text-xl font-medium text-primary mb-1"></h3>
+<p id="modalProductPrice" class="text-secondary font-bold text-lg mb-3"></p>
+<p id="modalProductDescription" class="text-gray-600 text-sm mb-4">This premium product from Adobe Archi & Engg Consultants is designed to meet professional architectural standards while being accessible to enthusiasts at all levels.</p>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-1">Variant</label>
+<select id="modalVariantSelector" class="w-full bg-gray-100 border border-gray-200 rounded-button py-2 px-3 text-sm">
+<!-- Options will be added dynamically -->
+</select>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
+<div class="flex items-center border border-gray-200 rounded-button overflow-hidden">
+<button id="modalQuantityDecrease" class="w-10 h-10 flex items-center justify-center bg-gray-100 text-gray-600 cursor-pointer">
+<i class="ri-subtract-line"></i>
+</button>
+<input id="modalQuantity" type="number" value="1" min="1" max="99" class="w-12 h-10 text-center border-none quantity-input">
+<button id="modalQuantityIncrease" class="w-10 h-10 flex items-center justify-center bg-gray-100 text-gray-600 cursor-pointer">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+<button id="modalAddToCartBtn" class="w-full bg-primary text-white py-3 rounded-button hover:bg-[#0E0E10] transition-colors cursor-pointer !rounded-button">
+Add to Cart
+</button>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 w-full bg-white border-t border-gray-200 px-2 py-2 z-50">
+  <div class="grid grid-cols-5 gap-2">
+    <a href="/" id="nav-home" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line"></i>
+      </div>
+      <span class="text-xs   mt-1">Home</span>
+    </a>
+    <a href="./Projects-Gallery-Overview.html" id="nav-projects" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-building-line"></i>
+      </div>
+      <span class="text-xs mt-1">Projects</span>
+    </a>
+    <a href="./Shop-Page-for-Archi-Products.html" id="nav-shop" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-store-2-fill text-primary"></i>
+      </div>
+      <span class="text-xs mt-1">Shop</span>
+    </a>
+    <a href="./About-Our-Company.html" id="nav-about" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-information-line"></i>
+      </div>
+      <span class="text-xs mt-1">About Us</span>
+    </a>
+    <a href="./User-Profile-and-Settings.html" id="nav-about" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line"></i>
+      </div>
+      <span class="text-xs mt-1">Profile</span>
+    </a>
+  </div>
+</div>
+<!-- Cart Management Script -->
+<script id="cartManagement">
+document.addEventListener('DOMContentLoaded', function() {
+// Cart state
+let cart = [];
+const taxRate = 0.08;
+// DOM Elements
+const cartToggleBtn = document.getElementById('cartToggleBtn');
+const closeCartBtn = document.getElementById('closeCartBtn');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartPanel = document.getElementById('cartPanel');
+const cartItems = document.getElementById('cartItems');
+const emptyCartMessage = document.getElementById('emptyCartMessage');
+const cartCount = document.getElementById('cartCount');
+const cartSubtotal = document.getElementById('cartSubtotal');
+const cartTax = document.getElementById('cartTax');
+const cartTotal = document.getElementById('cartTotal');
+const checkoutBtn = document.getElementById('checkoutBtn');
+// Toggle cart panel
+cartToggleBtn.addEventListener('click', function() {
+cartOverlay.classList.remove('hidden');
+setTimeout(() => {
+cartPanel.style.transform = 'translateX(0)';
+cartOverlay.style.opacity = '1';
+}, 10);
+});
+// Close cart panel
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', function(e) {
+if (e.target === cartOverlay) {
+closeCart();
+}
+});
+function closeCart() {
+cartPanel.style.transform = 'translateX(100%)';
+cartOverlay.style.opacity = '0';
+setTimeout(() => {
+cartOverlay.classList.add('hidden');
+}, 300);
+}
+// Add to cart functionality
+const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+addToCartButtons.forEach(button => {
+button.addEventListener('click', function() {
+const productId = this.getAttribute('data-product-id');
+const productName = this.getAttribute('data-product-name');
+const productPrice = parseFloat(this.getAttribute('data-product-price'));
+const productImage = this.getAttribute('data-product-image');
+const productContainer = this.closest('[data-product-id]');
+const variantSelector = productContainer.querySelector('[data-variant-selector]');
+const quantityInput = productContainer.querySelector('[data-quantity]');
+const variant = variantSelector ? variantSelector.value : 'default';
+const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+addToCart(productId, productName, productPrice, productImage, variant, quantity);
+// Show success message
+const successMsg = document.createElement('div');
+successMsg.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg z-50';
+successMsg.textContent = 'Added to cart!';
+document.body.appendChild(successMsg);
+setTimeout(() => {
+successMsg.remove();
+}, 2000);
+});
+});
+// Add to cart function
+function addToCart(id, name, price, image, variant, quantity) {
+// Check if product already exists in cart
+const existingItemIndex = cart.findIndex(item =>
+item.id === id && item.variant === variant
+);
+if (existingItemIndex !== -1) {
+// Update quantity if product already in cart
+cart[existingItemIndex].quantity += quantity;
+} else {
+// Add new item to cart
+cart.push({
+id,
+name,
+price,
+image,
+variant,
+quantity
+});
+}
+// Update cart UI
+updateCartUI();
+}
+// Update cart UI
+function updateCartUI() {
+// Update cart count
+const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+cartCount.textContent = totalItems;
+// Show/hide empty cart message
+if (cart.length === 0) {
+emptyCartMessage.classList.remove('hidden');
+} else {
+emptyCartMessage.classList.add('hidden');
+}
+// Clear cart items
+cartItems.innerHTML = '';
+if (cart.length === 0) {
+cartItems.appendChild(emptyCartMessage);
+return;
+}
+// Add cart items
+cart.forEach((item, index) => {
+const cartItem = document.createElement('div');
+cartItem.className = 'flex items-start py-3 border-b';
+cartItem.innerHTML = `
+<img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover object-top rounded-md mr-3">
+<div class="flex-1">
+<h4 class="text-sm font-medium">${item.name}</h4>
+<p class="text-xs text-gray-500 mb-1">Variant: ${item.variant}</p>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+<div class="flex items-center">
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-primary cart-item-decrease cursor-pointer" data-index="${index}">
+<i class="ri-subtract-line"></i>
+</button>
+<span class="w-6 text-center">${item.quantity}</span>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-primary cart-item-increase cursor-pointer" data-index="${index}">
+<i class="ri-add-line"></i>
+</button>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-red-500 cart-item-remove cursor-pointer ml-1" data-index="${index}">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+</div>
+`;
+cartItems.appendChild(cartItem);
+});
+// Add event listeners to cart item buttons
+const decreaseButtons = document.querySelectorAll('.cart-item-decrease');
+const increaseButtons = document.querySelectorAll('.cart-item-increase');
+const removeButtons = document.querySelectorAll('.cart-item-remove');
+decreaseButtons.forEach(button => {
+button.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'));
+if (cart[index].quantity > 1) {
+cart[index].quantity--;
+updateCartUI();
+}
+});
+});
+increaseButtons.forEach(button => {
+button.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'));
+cart[index].quantity++;
+updateCartUI();
+});
+});
+removeButtons.forEach(button => {
+button.addEventListener('click', function() {
+const index = parseInt(this.getAttribute('data-index'));
+cart.splice(index, 1);
+updateCartUI();
+});
+});
+// Update cart totals
+const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+const tax = subtotal * taxRate;
+const total = subtotal + tax;
+cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+cartTax.textContent = `$${tax.toFixed(2)}`;
+cartTotal.textContent = `$${total.toFixed(2)}`;
+}
+// Checkout button
+checkoutBtn.addEventListener('click', function() {
+if (cart.length === 0) {
+return;
+}
+const successMsg = document.createElement('div');
+successMsg.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg z-50';
+successMsg.textContent = 'Proceeding to checkout...';
+document.body.appendChild(successMsg);
+setTimeout(() => {
+successMsg.remove();
+closeCart();
+}, 2000);
+});
+// Initialize cart UI
+updateCartUI();
+});
+</script>
+<!-- Product Quantity Management Script -->
+<script id="quantityManagement">
+document.addEventListener('DOMContentLoaded', function() {
+// Quantity decrease buttons
+const decreaseButtons = document.querySelectorAll('.quantity-decrease');
+decreaseButtons.forEach(button => {
+button.addEventListener('click', function() {
+const input = this.parentElement.querySelector('input');
+let value = parseInt(input.value);
+if (value > 1) {
+input.value = value - 1;
+}
+});
+});
+// Quantity increase buttons
+const increaseButtons = document.querySelectorAll('.quantity-increase');
+increaseButtons.forEach(button => {
+button.addEventListener('click', function() {
+const input = this.parentElement.querySelector('input');
+let value = parseInt(input.value);
+if (value < 99) {
+input.value = value + 1;
+}
+});
+});
+// Quantity input validation
+const quantityInputs = document.querySelectorAll('.quantity-input');
+quantityInputs.forEach(input => {
+input.addEventListener('input', function() {
+let value = parseInt(this.value);
+if (isNaN(value) || value < 1) {
+this.value = 1;
+} else if (value > 99) {
+this.value = 99;
+}
+});
+});
+});
+</script>
+<!-- Search Script -->
+<script id="searchProducts">
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const productCards = document.querySelectorAll('[data-product-id]');
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+
+        productCards.forEach(card => {
+            const productName = card.querySelector('h3').textContent.toLowerCase();
+            const variant = card.querySelector('select').value.toLowerCase();
+            
+            if (productName.includes(searchTerm) || variant.includes(searchTerm)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+
+<!-- Quick View Modal Script -->
+<script id="quickViewModal">
+document.addEventListener('DOMContentLoaded', function() {
+// DOM Elements
+const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+const quickViewModal = document.getElementById('quickViewModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const modalProductImage = document.getElementById('modalProductImage');
+const modalProductName = document.getElementById('modalProductName');
+const modalProductPrice = document.getElementById('modalProductPrice');
+const modalVariantSelector = document.getElementById('modalVariantSelector');
+const modalQuantity = document.getElementById('modalQuantity');
+const modalQuantityDecrease = document.getElementById('modalQuantityDecrease');
+const modalQuantityIncrease = document.getElementById('modalQuantityIncrease');
+const modalAddToCartBtn = document.getElementById('modalAddToCartBtn');
+// Current product data
+let currentProduct = null;
+// Open quick view modal
+quickViewButtons.forEach(button => {
+button.addEventListener('click', function() {
+const productContainer = this.closest('[data-product-id]');
+const productId = productContainer.getAttribute('data-product-id');
+const productImage = productContainer.querySelector('img').src;
+const productName = productContainer.querySelector('h3').textContent;
+const productPrice = productContainer.querySelector('p').textContent;
+const variantSelector = productContainer.querySelector('select');
+// Set current product
+currentProduct = {
+id: productId,
+name: productName,
+price: parseFloat(productPrice.replace('$', '')),
+image: productImage
+};
+// Update modal content
+modalProductImage.src = productImage;
+modalProductName.textContent = productName;
+modalProductPrice.textContent = productPrice;
+modalQuantity.value = 1;
+// Update variant options
+modalVariantSelector.innerHTML = '';
+if (variantSelector) {
+Array.from(variantSelector.options).forEach(option => {
+const newOption = document.createElement('option');
+newOption.value = option.value;
+newOption.textContent = option.textContent;
+modalVariantSelector.appendChild(newOption);
+});
+}
+// Show modal
+quickViewModal.classList.remove('hidden');
+});
+});
+// Close modal
+closeModalBtn.addEventListener('click', closeModal);
+quickViewModal.addEventListener('click', function(e) {
+if (e.target === quickViewModal) {
+closeModal();
+}
+});
+function closeModal() {
+quickViewModal.classList.add('hidden');
+currentProduct = null;
+}
+// Quantity decrease
+modalQuantityDecrease.addEventListener('click', function() {
+let value = parseInt(modalQuantity.value);
+if (value > 1) {
+modalQuantity.value = value - 1;
+}
+});
+// Quantity increase
+modalQuantityIncrease.addEventListener('click', function() {
+let value = parseInt(modalQuantity.value);
+if (value < 99) {
+modalQuantity.value = value + 1;
+}
+});
+// Quantity input validation
+modalQuantity.addEventListener('input', function() {
+let value = parseInt(this.value);
+if (isNaN(value) || value < 1) {
+this.value = 1;
+} else if (value > 99) {
+this.value = 99;
+}
+});
+// Add to cart from modal
+modalAddToCartBtn.addEventListener('click', function() {
+if (!currentProduct) return;
+const variant = modalVariantSelector.value;
+const quantity = parseInt(modalQuantity.value);
+// Find the add to cart button for this product
+const addToCartBtn = document.querySelector(`.add-to-cart-btn[data-product-id="${currentProduct.id}"]`);
+if (addToCartBtn) {
+// Update the product container's variant and quantity
+const productContainer = addToCartBtn.closest('[data-product-id]');
+const variantSelector = productContainer.querySelector('[data-variant-selector]');
+const quantityInput = productContainer.querySelector('[data-quantity]');
+if (variantSelector) variantSelector.value = variant;
+if (quantityInput) quantityInput.value = quantity;
+// Trigger the add to cart button
+addToCartBtn.click();
+}
+closeModal();
+});
+});
+</script>
+</body>
+</html>

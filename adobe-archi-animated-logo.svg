@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142 120" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" style="background:#00000000">
+  <defs>
+    <filter id="a" x="-150%" y="-150%" width="400%" height="400%">
+      <feComponentTransfer result="result">
+        <feFuncA type="table" tableValues="0 1"/>
+      </feComponentTransfer>
+    </filter>
+
+    <linearGradient id="gradFillAnimated" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#faa775" stop-opacity="0">
+        <animate attributeName="stop-opacity" values="0;1" dur="2s" fill="freeze" />
+      </stop>
+      <stop offset="100%" stop-color="#faa775" stop-opacity="0">
+        <animate attributeName="stop-opacity" values="0;1" dur="2s" fill="freeze" />
+      </stop>
+    </linearGradient>
+
+    <style>
+      .path1 {
+        stroke: #faa775;
+        fill: url(#gradFillAnimated);
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: strokeReveal 2s ease forwards;
+      }
+
+      @keyframes strokeReveal {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      .path2 {
+        stroke: #faa775;
+        fill: none;
+        opacity: 0;
+        animation: fadeInTop 2s ease 1s forwards;
+      }
+
+      @keyframes fadeInTop {
+        0% {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .path3 {
+        stroke: #faa775;
+        fill: none;
+        opacity: 0;
+        transform: translateX(40px);
+        animation: slideInLeft 2s ease 2s forwards;
+      }
+
+      @keyframes slideInLeft {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </defs>
+
+  <path class="path1" d="M79.918 11.39 5.022 105.318l27.258.619 45.638-57.408h24.987z" transform="translate(-.652 -.62)" filter="url(#a)"/>
+  <path class="path2" d="m112.404 65.256-24.16.206-18.07 24.574 58.131-.413 8.467 15.075H38.269l40.823-52.452 25.672-.207z"/>
+  <path class="path3" d="M117.36 71.864q.207 0-28.29-.207L79.917 85.08l44.67-.62q-7.434-12.596-7.228-12.596Z"/>
+</svg>

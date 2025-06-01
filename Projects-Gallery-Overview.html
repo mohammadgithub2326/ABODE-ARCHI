@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects Gallery</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6C4134',secondary:'#4A5568'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'IBM Plex Sans', sans-serif;
+background-color: #FFFFFF;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Playfair Display', serif;
+}
+.logo-text {
+font-family: 'Pacifico', serif;
+}
+.project-card:hover .project-image {
+transform: scale(1.05);
+}
+.project-card:hover .project-overlay {
+opacity: 0.7;
+}
+.filter-chip.active {
+background-color: #6C4134;
+color: white;
+}
+.search-container {
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<body>
+<nav class="fixed top-0 w-full bg-white shadow-md z-50 px-4 py-3">
+<div class=" w-full flex items-center">
+<a href="/" data-readdy="true" class="w-8 h-8 flex items-center justify-center cursor-pointer mr-3">
+<i class="ri-arrow-left-line ri-lg text-gray-700 "></i>
+</a>
+<h1 class="text-lg font-medium text-gray-800">Projects Gallery</h1>
+<div class="relative">
+ <div
+          class="ml-28 w-8 h-8 flex items-center justify-center cursor-pointer"
+          id="filter-toggle"
+        >
+          <i class="ri-filter-3-line ri-lg text-gray-700"></i>
+        </div>
+<div id="filter-dropdown" class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg z-50 transform scale-95 opacity-0 pointer-events-none transition-all duration-200">
+<div class="p-4">
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-2">Project Date</label>
+<div class="grid grid-cols-2 gap-2">
+<input type="date" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="From">
+<input type="date" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="To">
+</div>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
+<div class="grid grid-cols-2 gap-2">
+<input type="number" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="Min">
+<input type="number" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="Max">
+</div>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-2">Square Footage</label>
+<div class="grid grid-cols-2 gap-2">
+<input type="number" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="Min sq ft">
+<input type="number" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="Max sq ft">
+</div>
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+<input type="text" class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2" placeholder="Enter location">
+</div>
+<div class="mb-4">
+<label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+<select class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 bg-white">
+<option value="newest">Newest First</option>
+<option value="oldest">Oldest First</option>
+<option value="az">A-Z</option>
+<option value="za">Z-A</option>
+<option value="budget_high">Budget: High to Low</option>
+<option value="budget_low">Budget: Low to High</option>
+</select>
+</div>
+<div class="flex justify-end space-x-2">
+<button class="px-4 py-2 text-sm text-gray-600 hover:text-gray-800" id="reset-filters">Reset</button>
+<button class="px-4 py-2 text-sm text-white bg-primary !rounded-button" id="apply-filters">Apply Filters</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="search-container fixed top-[57px] w-full bg-white z-40 pt-3 pb-2 px-4 shadow-sm">
+  <div class="relative mb-3">
+    <input type="text" placeholder="Search projects" class="w-full bg-gray-50 border border-gray-200 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm" id="project-search">
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+      <i class="ri-search-line"></i>
+    </div>
+  </div>
+  <div class="overflow-x-auto pb-2 -mx-1">
+    <div class="flex space-x-2 px-1 min-w-max" id="filter-chips">
+      <button class="filter-chip active whitespace-nowrap px-4 py-1.5 rounded-full text-sm transition-colors duration-200 cursor-pointer" data-filter="all">All Projects</button>
+      <button class="filter-chip whitespace-nowrap px-4 py-1.5 rounded-full text-sm bg-gray-100 text-gray-700 transition-colors duration-200 cursor-pointer" data-filter="residential">Residential</button>
+      <button class="filter-chip whitespace-nowrap px-4 py-1.5 rounded-full text-sm bg-gray-100 text-gray-700 transition-colors duration-200 cursor-pointer" data-filter="commercial">Commercial</button>
+      <button class="filter-chip whitespace-nowrap px-4 py-1.5 rounded-full text-sm bg-gray-100 text-gray-700 transition-colors duration-200 cursor-pointer" data-filter="landscape">Landscape</button>
+      <button class="filter-chip whitespace-nowrap px-4 py-1.5 rounded-full text-sm bg-gray-100 text-gray-700 transition-colors duration-200 cursor-pointer" data-filter="interior">Interior</button>
+    </div>
+  </div>
+</div>
+<main class="pt-[140px] pb-20 px-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 h-60 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520minimalist%2520architectural%2520building%2520with%2520clean%2520lines%252C%2520luxury%2520residential%2520home%2520with%2520large%2520windows%252C%2520professional%2520architectural%2520photography%252C%2520high-end%2520design%252C%2520earthy%2520tones%252C%2520dramatic%2520lighting%252C%2520isolated%2520structure%2520against%2520sky&width=180&height=160&seq=1&orientation=landscape" alt="Harmony Heights Residence" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Harmony Heights</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Residential</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">A modern family home that balances functionality with elegant design elements.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520commercial%2520building%2520with%2520glass%2520facade%252C%2520contemporary%2520office%2520architecture%252C%2520professional%2520architectural%2520photography%252C%2520corporate%2520headquarters%252C%2520urban%2520setting%252C%2520dramatic%2520lighting%252C%2520isolated%2520structure%2520against%2520sky&width=180&height=160&seq=2&orientation=landscape" alt="Vertex Business Center" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Vertex Business</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Commercial</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">A sustainable office complex designed for productivity and collaboration.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520luxury%2520villa%2520with%2520infinity%2520pool%2C%2520contemporary%2520residential%2520architecture%2C%2520professional%2520architectural%2520photography%2C%2520high-end%2520design%2C%2520sunset%2520lighting%2C%2520isolated%2520structure%2520with%2520ocean%2520view&width=180&height=160&seq=3&orientation=landscape" alt="Oceanview Villa" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Oceanview Villa</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Residential</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Luxury beachfront property with panoramic views and sustainable features.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520interior%2520design%2C%2520minimalist%2520living%2520room%2C%2520professional%2520interior%2520photography%2C%2520high-end%2520furniture%2C%2520warm%2520lighting%2C%2520earthy%2520tones%2C%2520clean%2520lines%2C%2520spacious%2520layout&width=180&height=160&seq=4&orientation=landscape" alt="Urban Loft Interior" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Urban Loft</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Interior</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Contemporary interior design with custom furniture and smart home integration.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520landscape%2520architecture%2C%2520zen%2520garden%2520with%2520water%2520features%2C%2520professional%2520landscape%2520photography%2C%2520minimalist%2520design%2C%2520natural%2520stone%2C%2520lush%2520greenery%2C%2520peaceful%2520atmosphere&width=180&height=160&seq=5&orientation=landscape" alt="Zen Garden Retreat" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Zen Garden</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Landscape</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Tranquil outdoor space with water features and indigenous plantings.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=boutique%2520retail%2520store%2520interior%2C%2520modern%2520commercial%2520space%2C%2520professional%2520architectural%2520photography%2C%2520high-end%2520design%2C%2520warm%2520lighting%2C%2520display%2520shelving%2C%2520minimalist%2520aesthetic&width=180&height=160&seq=6&orientation=landscape" alt="Boutique Retail Space" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Boutique Retail</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Commercial</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Elegant retail environment designed to enhance customer experience.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520eco-friendly%2520house%2C%2520sustainable%2520architecture%2C%2520professional%2520architectural%2520photography%2C%2520solar%2520panels%2C%2520green%2520roof%2C%2520natural%2520materials%2C%2520forest%2520setting&width=180&height=160&seq=7&orientation=landscape" alt="Eco Retreat House" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Eco Retreat</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Residential</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Sustainable home with zero carbon footprint and biophilic design elements.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520kitchen%2520interior%2C%2520luxury%2520residential%2520design%2C%2520professional%2520interior%2520photography%2C%2520marble%2520countertops%2C%2520high-end%2520appliances%2C%2520warm%2520lighting%2C%2520minimalist%2520aesthetic&width=180&height=160&seq=8&orientation=landscape" alt="Gourmet Kitchen Design" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Gourmet Kitchen</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Interior</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Chef-inspired kitchen renovation with custom cabinetry and premium finishes.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520rooftop%2520garden%2C%2520urban%2520landscape%2520design%2C%2520professional%2520landscape%2520photography%2C%2520city%2520views%2C%2520container%2520plantings%2C%2520outdoor%2520seating%2C%2520sustainable%2520design&width=180&height=160&seq=9&orientation=landscape" alt="Urban Rooftop Garden" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Rooftop Garden</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Landscape</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Urban oasis featuring drought-resistant plants and innovative irrigation.</p>
+</div>
+</div>
+<div class="project-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
+<div class="relative h-40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 project-overlay z-10"></div>
+<img src="https://readdy.ai/api/search-image?query=modern%2520hotel%2520lobby%2C%2520luxury%2520commercial%2520interior%2C%2520professional%2520architectural%2520photography%2C%2520high%2520ceilings%2C%2520statement%2520lighting%2C%2520elegant%2520furniture%2C%2520marble%2520floors&width=180&height=160&seq=10&orientation=landscape" alt="Luxury Hotel Lobby" class="w-full h-full object-cover transition-transform duration-300 project-image">
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-medium text-sm">Hotel Lobby</h3>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">Commercial</span>
+</div>
+<p class="text-xs text-gray-600 line-clamp-2">Sophisticated hospitality space balancing luxury with functional design.</p>
+</div>
+</div>
+</div>
+</main>
+<div id="project-detail-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+  <div class="absolute inset-0 bg-black/50 transition-opacity duration-300" id="modal-overlay"></div>
+  
+  <div class="absolute bottom-10 left-0 right-0 bg-white rounded-t-xl transform transition-all duration-300 ease-in-out translate-y-full max-h-[90vh] overflow-y-auto" id="modal-content">
+    <div class="sticky top-0 bg-white z-10 pt-2">
+      <div class="h-1 w-16 bg-gray-300 rounded-full mx-auto my-3"></div>
+      <button id="close-modal" class="absolute right-4 top-4 w-8 h-8 flex items-center justify-center cursor-pointer text-gray-500 hover:text-gray-700 transition-colors">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    
+    <div class="p-4 pb-6">
+      <div class="relative h-48 overflow-hidden rounded-lg mb-4">
+        <img src="https://readdy.ai/api/search-image?query=modern%2520minimalist%2520architectural%2520building%2520with%2520clean%2520lines%252C%2520luxury%2520residential%2520home%2520with%2520large%2520windows%252C%2520professional%2520architectural%2520photography%252C%2520high-end%2520design%252C%2520earthy%2520tones%252C%2520dramatic%2520lighting%252C%2520isolated%2520structure%2520against%2520sky&width=375&height=192&seq=1&orientation=landscape" 
+             alt="Harmony Heights Residence" 
+             class="w-full h-full object-cover">
+      </div>
+      
+      <div class="flex justify-between items-start mb-3">
+        <h2 class="text-xl font-semibold">Harmony Heights Residence</h2>
+        <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Residential</span>
+      </div>
+      
+      <div class="flex space-x-4 mb-4">
+        <div class="flex items-center text-sm text-gray-600">
+          <i class="ri-map-pin-line mr-1"></i>
+          <span>San Francisco, CA</span>
+        </div>
+        <div class="flex items-center text-sm text-gray-600">
+          <i class="ri-calendar-line mr-1"></i>
+          <span>Completed 2024</span>
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <h3 class="text-lg font-medium mb-2">Overview</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          A modern family home that balances functionality with elegant design elements. This 4,200 sq ft residence features open-concept living spaces, floor-to-ceiling windows, and sustainable materials throughout. The design prioritizes natural light and seamless indoor-outdoor transitions.
+        </p>
+      </div>
+      
+      <div class="mb-4">
+        <h3 class="text-lg font-medium mb-2">Key Features</h3>
+        <ul class="text-sm text-gray-600 space-y-1">
+          <li class="flex items-start">
+            <i class="ri-checkbox-circle-line text-primary mr-2 mt-0.5"></i>
+            <span>Passive solar design with optimal orientation</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-checkbox-circle-line text-primary mr-2 mt-0.5"></i>
+            <span>Custom millwork and built-in storage solutions</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-checkbox-circle-line text-primary mr-2 mt-0.5"></i>
+            <span>Drought-resistant landscaping with native plants</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-checkbox-circle-line text-primary mr-2 mt-0.5"></i>
+            <span>Smart home integration with energy monitoring</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="mb-6">
+        <h3 class="text-lg font-medium mb-2">Architect's Statement</h3>
+        <p class="text-gray-600 text-sm leading-relaxed italic">
+          "Our goal was to create a home that feels both timeless and contemporary, with careful attention to how the family would experience each space throughout the day. The material palette draws from the surrounding landscape, creating a sense of belonging and permanence."
+        </p>
+      </div>
+      
+      <button class="w-full bg-primary text-white py-3 rounded-button cursor-pointer hover:bg-primary-dark transition-colors">
+        Request Similar Design
+      </button>
+    </div>
+  </div>
+</div>
+<div class="fixed bottom-0 w-full bg-white border-t border-gray-200 px-2 py-2 z-50">
+  <div class="grid grid-cols-5 gap-2">
+    <a href="/" id="nav-home" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line "></i>
+      </div>
+      <span class="text-xs   mt-1">Home</span>
+    </a>
+    <a href="./Projects-Gallery-Overview.html" id="nav-projects" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-building-fill text-primary"></i>
+      </div>
+      <span class="text-xs mt-1">Projects</span>
+    </a>
+    <a href="./Shop-Page-for-Archi-Products.html" id="nav-shop" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-store-2-line"></i>
+      </div>
+      <span class="text-xs mt-1">Shop</span>
+    </a>
+    <a href="./About-Our-Company.html" id="nav-about" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-information-line"></i>
+      </div>
+      <span class="text-xs mt-1">About Us</span>
+    </a>
+    <a href="./User-Profile-and-Settings.html" id="nav-about" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line"></i>
+      </div>
+      <span class="text-xs mt-1">Profile</span>
+    </a>
+  </div>
+</div>
+
+
+<script id="filter-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+const filterChips = document.querySelectorAll('.filter-chip');
+const filterToggle = document.getElementById('filter-toggle');
+const filterDropdown = document.getElementById('filter-dropdown');
+const resetFilters = document.getElementById('reset-filters');
+const applyFilters = document.getElementById('apply-filters');
+let isDropdownOpen = false;
+
+filterChips.forEach(chip => {
+chip.addEventListener('click', function() {
+filterChips.forEach(c => c.classList.remove('active'));
+this.classList.add('active');
+const projectCards = document.querySelectorAll('.project-card');
+projectCards.forEach(card => {
+card.style.opacity = '0.5';
+});
+setTimeout(() => {
+projectCards.forEach(card => {
+card.style.opacity = '1';
+});
+}, 500);
+});
+});
+
+function toggleDropdown() {
+isDropdownOpen = !isDropdownOpen;
+if (isDropdownOpen) {
+filterDropdown.classList.remove('scale-95', 'opacity-0', 'pointer-events-none');
+filterDropdown.classList.add('scale-100', 'opacity-100');
+} else {
+filterDropdown.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
+filterDropdown.classList.remove('scale-100', 'opacity-100');
+}
+}
+
+function closeDropdown() {
+if (isDropdownOpen) {
+isDropdownOpen = false;
+filterDropdown.classList.add('scale-95', 'opacity-0', 'pointer-events-none');
+filterDropdown.classList.remove('scale-100', 'opacity-100');
+}
+}
+
+filterToggle.addEventListener('click', (e) => {
+e.stopPropagation();
+toggleDropdown();
+});
+
+document.addEventListener('click', (e) => {
+if (!filterDropdown.contains(e.target)) {
+closeDropdown();
+}
+});
+
+resetFilters.addEventListener('click', () => {
+const inputs = filterDropdown.querySelectorAll('input');
+const select = filterDropdown.querySelector('select');
+inputs.forEach(input => {
+input.value = '';
+});
+select.selectedIndex = 0;
+});
+
+applyFilters.addEventListener('click', () => {
+const projectCards = document.querySelectorAll('.project-card');
+projectCards.forEach(card => {
+card.style.opacity = '0.5';
+});
+setTimeout(() => {
+projectCards.forEach(card => {
+card.style.opacity = '1';
+});
+closeDropdown();
+}, 500);
+});
+});
+</script>
+<script id="search-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('project-search');
+  const filterChips = document.getElementById('filter-chips').querySelectorAll('.filter-chip');
+  let activeFilter = 'all';
+  let debounceTimer;
+  
+  // Debounce function to limit how often the search executes
+  function debounce(func, delay) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(func, delay);
+  }
+  
+  // Search functionality with debounce
+  searchInput.addEventListener('input', function() {
+    debounce(filterProjects, 300);
+  });
+  
+  // Filter chip functionality
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', function() {
+      // Update active state
+      filterChips.forEach(c => {
+        c.classList.remove('active', 'bg-primary', 'text-white');
+        c.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      
+      this.classList.add('active', 'bg-primary', 'text-white');
+      this.classList.remove('bg-gray-100', 'text-gray-700');
+      
+      activeFilter = this.dataset.filter;
+      filterProjects();
+    });
+  });
+  
+  function filterProjects() {
+    const query = searchInput.value.trim().toLowerCase();
+    const projectCards = document.querySelectorAll('.project-card');
+    let anyVisible = false;
+    
+    projectCards.forEach(card => {
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const description = card.querySelector('p')?.textContent.toLowerCase() || '';
+      const categoryElement = card.querySelector('[class*="bg-primary/10"]');
+      const category = categoryElement ? categoryElement.textContent.toLowerCase() : '';
+      
+      // Check if matches search query (split into words for better matching)
+      const queryWords = query.split(' ');
+      const matchesSearch = queryWords.every(word => 
+        title.includes(word) || description.includes(word)
+      ) || query === '';
+      
+      // Check if matches filter
+      const matchesFilter = activeFilter === 'all' || 
+                          category === activeFilter || 
+                          (categoryElement && categoryElement.textContent.toLowerCase() === activeFilter);
+      
+      if (matchesSearch && matchesFilter) {
+        card.style.display = 'block';
+        card.style.animation = 'fadeIn 0.3s ease-out';
+        anyVisible = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Optional: Show a "no results" message if nothing matches
+    const noResultsElement = document.getElementById('no-results-message');
+    if (noResultsElement) {
+      noResultsElement.style.display = anyVisible ? 'none' : 'block';
+    }
+  }
+  
+  // Initialize with all projects showing
+  filterProjects();
+});
+
+// Add this to your CSS for fade-in animation
+</script>
+<script id="modal-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+const projectCards = document.querySelectorAll('.project-card');
+const projectDetailModal = document.getElementById('project-detail-modal');
+const modalContent = document.getElementById('modal-content');
+const modalOverlay = document.getElementById('modal-overlay');
+const closeModal = document.getElementById('close-modal');
+function openModal() {
+projectDetailModal.classList.remove('hidden');
+setTimeout(() => {
+modalContent.classList.remove('translate-y-full');
+}, 10);
+document.body.style.overflow = 'hidden';
+}
+function closeModalHandler() {
+modalContent.classList.add('translate-y-full');
+setTimeout(() => {
+projectDetailModal.classList.add('hidden');
+document.body.style.overflow = '';
+}, 300);
+}
+projectCards.forEach(card => {
+card.addEventListener('click', openModal);
+});
+closeModal.addEventListener('click', closeModalHandler);
+modalOverlay.addEventListener('click', closeModalHandler);
+// Prevent clicks inside the modal from closing it
+modalContent.addEventListener('click', (e) => {
+e.stopPropagation();
+});
+});
+</script>
+</body>
+</html>

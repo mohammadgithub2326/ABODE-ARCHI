@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6C4134',secondary:'#0E0E10'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #FFFFFF;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+.logo-text {
+  font-family: 'Pacifico', serif;
+}
+</style>
+</head>
+<body>
+<nav class="fixed top-0 w-full bg-white shadow-md z-50 px-4 py-3">
+  <div class="flex justify-between items-center">
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142 120" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <defs>
+    <filter id="a" x="-150%" y="-150%" width="400%" height="400%">
+      <feComponentTransfer result="result">
+        <feFuncA type="table" tableValues="0 1"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+
+  <path d="M79.918 11.39 5.022 105.318l27.258.619 45.638-57.408h24.987z" transform="translate(-.652 -.62)" filter="url(#a)" stroke="#faa775" fill="#6C4134"/>
+  <path d="m112.404 65.256-24.16.206-18.07 24.574 58.131-.413 8.467 15.075H38.269l40.823-52.452 25.672-.207z" stroke="#6C4134" fill="#fff"/>
+  <path d="M117.36 71.864q.207 0-28.29-.207L79.917 85.08l44.67-.62q-7.434-12.596-7.228-12.596Z" stroke="#6C4134" fill="#fff"/>
+</svg>
+
+      <span class="font-['Pacifico'] text-primary text-xl">adobe archi</span>
+    </div>
+    <!-- <div id="menu-button" class="w-8 h-8 flex items-center justify-center cursor-pointer">
+      <i class="ri-menu-line ri-lg"></i>
+    </div> -->
+  </div>
+</nav>
+
+<div id="menu-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden opacity-0 transition-opacity duration-300"></div>
+<!-- <div id="menu-drawer" class="fixed top-0 right-0 w-[280px] h-full bg-white z-[70] transform translate-x-full transition-transform duration-300 shadow-lg">
+  <div class="p-4 flex justify-between items-center border-b">
+    <span class="text-lg font-medium">Menu</span>
+    <div id="close-menu" class="w-8 h-8 flex items-center justify-center cursor-pointer">
+      <i class="ri-close-line ri-lg"></i>
+    </div>
+  </div>
+  <div class="py-4">
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-home-5-line ri-lg mr-3"></i>
+      <span>Home</span>
+    </a>
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-building-line ri-lg mr-3"></i>
+      <span>Projects</span>
+    </a>
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-tools-line ri-lg mr-3"></i>
+      <span>Services</span>
+    </a>
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-information-line ri-lg mr-3"></i>
+      <span>About Us</span>
+    </a>
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-chat-quote-line ri-lg mr-3"></i>
+      <span>Testimonials</span>
+    </a>
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-calculator-line ri-lg mr-3"></i>
+      <span>Cost Estimator</span>
+    </a>
+    <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50">
+      <i class="ri-mail-line ri-lg mr-3"></i>
+      <span>Contact</span>
+    </a>
+  </div>
+</div> -->
+
+<main class="pt-16 pb-20">
+  <section class="px-4 py-6">
+    <div class="flex flex-col items-center">
+      <div class="relative w-24 h-24 mb-4">
+        <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+          <img id="profile-image" src="https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520an%2520architect%252C%2520high%2520quality%252C%2520studio%2520lighting%252C%2520neutral%2520background%252C%2520business%2520attire%252C%2520confident%2520expression%252C%2520architectural%2520elements%2520in%2520background&width=96&height=96&seq=1&orientation=squarish" alt="Profile" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute bottom-0 right-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center cursor-pointer shadow-md" id="edit-photo-btn">
+          <i class="ri-camera-line text-white"></i>
+        </div>
+      </div>
+      <h1 id="profile-name" class="text-xl font-semibold mb-1">Alexander Mitchell</h1>
+      <p id="profile-email" class="text-gray-500 text-sm mb-4">alexander.mitchell@example.com</p>
+      <button id="edit-profile-btn" class="bg-primary text-white px-4 py-2 !rounded-button flex items-center text-sm cursor-pointer">
+        <i class="ri-edit-line mr-2"></i>
+        Edit Profile
+      </button>
+    </div>
+  </section>
+
+  <section class="px-4 py-2">
+    <div class="flex overflow-x-auto py-2 mb-2 no-scrollbar">
+      <button class="tab-button active flex-shrink-0 px-4 py-2 mr-3 bg-primary text-white rounded-full text-sm" data-tab="saved">
+        Saved Projects
+      </button>
+      <button class="tab-button flex-shrink-0 px-4 py-2 mr-3 bg-gray-100 text-gray-700 rounded-full text-sm" data-tab="history">
+        Project History
+      </button>
+      <button class="tab-button flex-shrink-0 px-4 py-2 mr-3 bg-gray-100 text-gray-700 rounded-full text-sm" data-tab="settings">
+        Settings
+      </button>
+    </div>
+
+    <div id="saved-projects" class="tab-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Saved Projects</h2>
+        <span class="text-xs text-gray-500" id="saved-count">4 projects</span>
+      </div>
+      
+      <div class="space-y-4">
+        <div class="project-card bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="relative h-40 overflow-hidden">
+            <img src="https://readdy.ai/api/search-image?query=modern%2520minimalist%2520architectural%2520building%2520with%2520clean%2520lines%252C%2520luxury%2520residential%2520home%2520with%2520large%2520windows%252C%2520professional%2520architectural%2520photography%252C%2520high-end%2520design%252C%2520earthy%2520tones%252C%2520dramatic%2520lighting&width=375&height=160&seq=2&orientation=landscape" alt="Harmony Heights Residence" class="w-full h-full object-cover">
+            <button class="absolute top-2 right-2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-primary cursor-pointer saved-toggle">
+              <i class="ri-heart-fill"></i>
+            </button>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium">Harmony Heights Residence</h3>
+              <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Residential</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">A modern family home that balances functionality with elegant design elements.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-gray-500">Saved on May 25, 2025</span>
+              <button class="text-primary flex items-center text-sm cursor-pointer">
+                View
+                <i class="ri-arrow-right-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="relative h-40 overflow-hidden">
+            <img src="https://readdy.ai/api/search-image?query=modern%2520commercial%2520building%2520with%2520glass%2520facade%252C%2520contemporary%2520office%2520architecture%252C%2520professional%2520architectural%2520photography%252C%2520corporate%2520headquarters%252C%2520urban%2520setting%252C%2520dramatic%2520lighting&width=375&height=160&seq=3&orientation=landscape" alt="Vertex Business Center" class="w-full h-full object-cover">
+            <button class="absolute top-2 right-2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-primary cursor-pointer saved-toggle">
+              <i class="ri-heart-fill"></i>
+            </button>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium">Vertex Business Center</h3>
+              <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Commercial</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">A sustainable office complex designed for productivity and collaboration.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-gray-500">Saved on May 28, 2025</span>
+              <button class="text-primary flex items-center text-sm cursor-pointer">
+                View
+                <i class="ri-arrow-right-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="relative h-40 overflow-hidden">
+            <img src="https://readdy.ai/api/search-image?query=modern%2520interior%2520design%2520with%2520open%2520floor%2520plan%252C%2520luxury%2520living%2520room%252C%2520professional%2520interior%2520photography%252C%2520high-end%2520furniture%252C%2520natural%2520light%252C%2520minimalist%2520aesthetic&width=375&height=160&seq=4&orientation=landscape" alt="Azure Loft Interiors" class="w-full h-full object-cover">
+            <button class="absolute top-2 right-2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-primary cursor-pointer saved-toggle">
+              <i class="ri-heart-fill"></i>
+            </button>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium">Azure Loft Interiors</h3>
+              <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Interior</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">Contemporary interior design with sustainable materials and smart home integration.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-gray-500">Saved on May 29, 2025</span>
+              <button class="text-primary flex items-center text-sm cursor-pointer">
+                View
+                <i class="ri-arrow-right-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="relative h-40 overflow-hidden">
+            <img src="https://readdy.ai/api/search-image?query=modern%2520landscape%2520architecture%252C%2520zen%2520garden%2520with%2520water%2520features%252C%2520professional%2520landscape%2520photography%252C%2520sustainable%2520design%252C%2520outdoor%2520living%2520space%252C%2520natural%2520materials&width=375&height=160&seq=5&orientation=landscape" alt="Serenity Gardens" class="w-full h-full object-cover">
+            <button class="absolute top-2 right-2 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-primary cursor-pointer saved-toggle">
+              <i class="ri-heart-fill"></i>
+            </button>
+          </div>
+          <div class="p-3">
+            <div class="flex justify-between items-start mb-1">
+              <h3 class="font-medium">Serenity Gardens</h3>
+              <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">Landscape</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-2">Sustainable landscape design with native plants and water conservation features.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-gray-500">Saved on May 30, 2025</span>
+              <button class="text-primary flex items-center text-sm cursor-pointer">
+                View
+                <i class="ri-arrow-right-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="project-history" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Project History</h2>
+        <button id="clear-history" class="text-xs text-gray-500 flex items-center cursor-pointer">
+          <i class="ri-delete-bin-line mr-1"></i>
+          Clear
+        </button>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="bg-white rounded-lg shadow-sm p-3 flex">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520minimalist%2520architectural%2520building%2520thumbnail%252C%2520simple%2520composition%252C%2520clean%2520lines&width=60&height=60&seq=6&orientation=squarish" alt="Project" class="w-14 h-14 rounded object-cover mr-3">
+          <div class="flex-1">
+            <h3 class="font-medium text-sm">Harmony Heights Residence</h3>
+            <p class="text-xs text-gray-500 mb-1">Viewed 2 hours ago</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Residential</span>
+              <button class="text-primary flex items-center text-xs cursor-pointer">
+                View again
+                <i class="ri-arrow-right-s-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-3 flex">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520commercial%2520building%2520thumbnail%252C%2520simple%2520composition%252C%2520clean%2520lines&width=60&height=60&seq=7&orientation=squarish" alt="Project" class="w-14 h-14 rounded object-cover mr-3">
+          <div class="flex-1">
+            <h3 class="font-medium text-sm">Vertex Business Center</h3>
+            <p class="text-xs text-gray-500 mb-1">Viewed yesterday</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Commercial</span>
+              <button class="text-primary flex items-center text-xs cursor-pointer">
+                View again
+                <i class="ri-arrow-right-s-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-3 flex">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520interior%2520design%2520thumbnail%252C%2520simple%2520composition%252C%2520clean%2520lines&width=60&height=60&seq=8&orientation=squarish" alt="Project" class="w-14 h-14 rounded object-cover mr-3">
+          <div class="flex-1">
+            <h3 class="font-medium text-sm">Azure Loft Interiors</h3>
+            <p class="text-xs text-gray-500 mb-1">Viewed 2 days ago</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Interior</span>
+              <button class="text-primary flex items-center text-xs cursor-pointer">
+                View again
+                <i class="ri-arrow-right-s-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-3 flex">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520landscape%2520design%2520thumbnail%252C%2520simple%2520composition%252C%2520clean%2520lines&width=60&height=60&seq=9&orientation=squarish" alt="Project" class="w-14 h-14 rounded object-cover mr-3">
+          <div class="flex-1">
+            <h3 class="font-medium text-sm">Serenity Gardens</h3>
+            <p class="text-xs text-gray-500 mb-1">Viewed 3 days ago</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Landscape</span>
+              <button class="text-primary flex items-center text-xs cursor-pointer">
+                View again
+                <i class="ri-arrow-right-s-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-3 flex">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520architectural%2520sketch%2520thumbnail%252C%2520simple%2520composition%252C%2520clean%2520lines&width=60&height=60&seq=10&orientation=squarish" alt="Project" class="w-14 h-14 rounded object-cover mr-3">
+          <div class="flex-1">
+            <h3 class="font-medium text-sm">Skyline Tower</h3>
+            <p class="text-xs text-gray-500 mb-1">Viewed 5 days ago</p>
+            <div class="flex justify-between items-center">
+              <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Commercial</span>
+              <button class="text-primary flex items-center text-xs cursor-pointer">
+                View again
+                <i class="ri-arrow-right-s-line ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="account-settings" class="tab-content hidden">
+      <h2 class="text-lg font-semibold mb-4">Account Settings</h2>
+      
+      <div class="space-y-5">
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h3 class="font-medium mb-3">Notification Preferences</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm">Project Updates</p>
+                <p class="text-xs text-gray-500">Get notified about changes to your saved projects</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked id="notify-projects">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm">New Designs</p>
+                <p class="text-xs text-gray-500">Receive updates about new architectural designs</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked id="notify-designs">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm">Special Offers</p>
+                <p class="text-xs text-gray-500">Get notified about promotions and special offers</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" id="notify-offers">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h3 class="font-medium mb-3">Privacy Settings</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm">Save Browsing History</p>
+                <p class="text-xs text-gray-500">Store your project viewing history</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked id="save-history">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm">Data Usage</p>
+                <p class="text-xs text-gray-500">Allow anonymous usage data collection</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked id="data-usage">
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <h3 class="font-medium mb-3">Account Management</h3>
+          <div class="space-y-3">
+            <button class="w-full py-2 border border-gray-300 rounded-button text-sm flex items-center justify-center cursor-pointer">
+              <i class="ri-lock-line mr-2"></i>
+              Change Password
+            </button>
+            <button class="w-full py-2 border border-gray-300 rounded-button text-sm flex items-center justify-center cursor-pointer">
+              <i class="ri-download-line mr-2"></i>
+              Export My Data
+            </button>
+            <button class="w-full py-2 border border-red-300 text-red-500 rounded-button text-sm flex items-center justify-center cursor-pointer">
+              <i class="ri-logout-box-line mr-2"></i>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="fixed bottom-0 w-full bg-white border-t border-gray-200 px-2 py-2 z-50">
+  <div class="grid grid-cols-5 gap-2">
+    <a href="/" id="nav-home" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-home-5-line"></i>
+      </div>
+      <span class="text-xs   mt-1">Home</span>
+    </a>
+    <a href="./Projects-Gallery-Overview.html" id="nav-projects" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-building-line"></i>
+      </div>
+      <span class="text-xs mt-1">Projects</span>
+    </a>
+    <a href="./Shop-Page-for-Archi-Products.html" id="nav-shop" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-store-2-line"></i>
+      </div>
+      <span class="text-xs mt-1">Shop</span>
+    </a>
+    <a href="./About-Our-Company.html" id="nav-about" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-line"></i>
+      </div>
+      <span class="text-xs mt-1">About Us</span>
+    </a>
+    <a href="./User-Profile-and-Settings.html" id="nav-about" data-readdy="true" class="flex flex-col items-center justify-center text-gray-500 nav-tab">
+      <div class="w-6 h-6 flex items-center justify-center">
+        <i class="ri-user-fill text-primary"></i>
+      </div>
+      <span class="text-xs mt-1">Profile</span>
+    </a>
+  </div>
+</div>
+
+
+
+<div id="edit-profile-modal" class="fixed inset-0 bg-black/50 z-[80] hidden flex items-center justify-center">
+  <div class="bg-white rounded-lg w-[90%] max-w-sm mx-auto">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-medium">Edit Profile</h3>
+      <button id="close-edit-modal" class="w-8 h-8 flex items-center justify-center cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <form id="profile-form" class="p-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-medium mb-2">Full Name</label>
+        <input type="text" id="edit-name" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-primary" value="Alexander Mitchell">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-medium mb-2">Email</label>
+        <input type="email" id="edit-email" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-primary" value="alexander.mitchell@example.com">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-medium mb-2">Phone</label>
+        <input type="tel" id="edit-phone" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-primary" value="+1 (555) 123-4567">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-medium mb-2">Profession</label>
+        <input type="text" id="edit-profession" class="w-full bg-gray-50 border border-gray-300 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-primary" value="Architect">
+      </div>
+      <button type="submit" class="w-full bg-primary text-white py-3 !rounded-button cursor-pointer">
+        Save Changes
+      </button>
+    </form>
+  </div>
+</div>
+
+<div id="photo-modal" class="fixed inset-0 bg-black/50 z-[80] hidden flex items-center justify-center">
+  <div class="bg-white rounded-lg w-[90%] max-w-sm mx-auto">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-medium">Change Profile Photo</h3>
+      <button id="close-photo-modal" class="w-8 h-8 flex items-center justify-center cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="p-4 space-y-4">
+      <button class="w-full py-3 border border-gray-300 rounded-button text-sm flex items-center justify-center cursor-pointer">
+        <i class="ri-camera-line mr-2"></i>
+        Take Photo
+      </button>
+      <button class="w-full py-3 border border-gray-300 rounded-button text-sm flex items-center justify-center cursor-pointer">
+        <i class="ri-image-line mr-2"></i>
+        Choose from Library
+      </button>
+      <button class="w-full py-3 border border-red-300 text-red-500 rounded-button text-sm flex items-center justify-center cursor-pointer">
+        <i class="ri-delete-bin-line mr-2"></i>
+        Remove Current Photo
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmation-modal" class="fixed inset-0 bg-black/50 z-[80] hidden flex items-center justify-center">
+  <div class="bg-white rounded-lg w-[90%] max-w-sm mx-auto p-5">
+    <h3 class="font-medium text-center mb-3" id="confirmation-title">Clear History</h3>
+    <p class="text-gray-600 text-sm text-center mb-5" id="confirmation-message">Are you sure you want to clear your project viewing history? This action cannot be undone.</p>
+    <div class="flex space-x-3">
+      <button id="cancel-confirmation" class="flex-1 py-2 border border-gray-300 rounded-button text-sm cursor-pointer">Cancel</button>
+      <button id="confirm-action" class="flex-1 py-2 bg-primary text-white rounded-button text-sm cursor-pointer">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script id="menu-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menu-button');
+  const menuDrawer = document.getElementById('menu-drawer');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const closeMenu = document.getElementById('close-menu');
+
+  function openMenu() {
+    menuOverlay.classList.remove('hidden');
+    setTimeout(() => {
+      menuOverlay.classList.remove('opacity-0');
+      menuDrawer.classList.remove('translate-x-full');
+    }, 50);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenuHandler() {
+    menuOverlay.classList.add('opacity-0');
+    menuDrawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      menuOverlay.classList.add('hidden');
+    }, 300);
+    document.body.style.overflow = '';
+  }
+
+  menuButton.addEventListener('click', openMenu);
+  closeMenu.addEventListener('click', closeMenuHandler);
+  menuOverlay.addEventListener('click', closeMenuHandler);
+  
+  menuDrawer.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+});
+</script>
+
+<script id="tab-switching">
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  function switchTab(tabId) {
+    // Hide all tab contents
+    tabContents.forEach(content => {
+      content.classList.add('hidden');
+    });
+    
+    // Remove active class from all tab buttons
+    tabButtons.forEach(button => {
+      button.classList.remove('bg-primary', 'text-white');
+      button.classList.add('bg-gray-100', 'text-gray-700');
+    });
+    
+    // Show the selected tab content
+    let targetContent;
+    if (tabId === 'saved') {
+      targetContent = document.getElementById('saved-projects');
+    } else if (tabId === 'history') {
+      targetContent = document.getElementById('project-history');
+    } else if (tabId === 'settings') {
+      targetContent = document.getElementById('account-settings');
+    }
+    
+    if (targetContent) {
+      targetContent.classList.remove('hidden');
+    }
+    
+    // Add active class to the clicked tab button
+    const activeButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+    if (activeButton) {
+      activeButton.classList.remove('bg-gray-100', 'text-gray-700');
+      activeButton.classList.add('bg-primary', 'text-white');
+    }
+  }
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      switchTab(tabId);
+    });
+  });
+});
+</script>
+
+<script id="saved-projects-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const savedToggles = document.querySelectorAll('.saved-toggle');
+  
+  savedToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const projectCard = this.closest('.project-card');
+      
+      // Create confirmation modal
+      const confirmationTitle = document.getElementById('confirmation-title');
+      const confirmationMessage = document.getElementById('confirmation-message');
+      const confirmationModal = document.getElementById('confirmation-modal');
+      const confirmAction = document.getElementById('confirm-action');
+      const cancelConfirmation = document.getElementById('cancel-confirmation');
+      
+      confirmationTitle.textContent = 'Remove from Saved';
+      confirmationMessage.textContent = 'Are you sure you want to remove this project from your saved list?';
+      confirmationModal.classList.remove('hidden');
+      
+      confirmAction.onclick = function() {
+        // Remove the project card with animation
+        projectCard.style.opacity = '0';
+        projectCard.style.height = '0';
+        projectCard.style.marginBottom = '0';
+        projectCard.style.transition = 'opacity 0.3s, height 0.5s, margin 0.5s';
+        
+        setTimeout(() => {
+          projectCard.remove();
+          
+          // Update saved count
+          const savedCount = document.getElementById('saved-count');
+          const currentCount = parseInt(savedCount.textContent);
+          savedCount.textContent = `${currentCount - 1} projects`;
+          
+          // Save to localStorage
+          updateLocalStorage();
+        }, 500);
+        
+        confirmationModal.classList.add('hidden');
+      };
+      
+      cancelConfirmation.onclick = function() {
+        confirmationModal.classList.add('hidden');
+      };
+    });
+  });
+  
+  function updateLocalStorage() {
+    // Get all remaining saved projects
+    const savedProjects = [];
+    document.querySelectorAll('#saved-projects .project-card').forEach(card => {
+      const title = card.querySelector('h3').textContent;
+      const category = card.querySelector('span.bg-primary\\/10').textContent;
+      const description = card.querySelector('p.text-sm.text-gray-600').textContent;
+      const date = card.querySelector('span.text-xs.text-gray-500').textContent;
+      const imageUrl = card.querySelector('img').src;
+      
+      savedProjects.push({
+        title,
+        category,
+        description,
+        date,
+        imageUrl
+      });
+    });
+    
+    // Save to localStorage
+    const userData = JSON.parse(localStorage.getItem('architectUserData') || '{}');
+    userData.savedProjects = savedProjects;
+    localStorage.setItem('architectUserData', JSON.stringify(userData));
+  }
+});
+</script>
+
+<script id="project-history-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const clearHistoryBtn = document.getElementById('clear-history');
+  
+  clearHistoryBtn.addEventListener('click', function() {
+    // Show confirmation modal
+    const confirmationTitle = document.getElementById('confirmation-title');
+    const confirmationMessage = document.getElementById('confirmation-message');
+    const confirmationModal = document.getElementById('confirmation-modal');
+    const confirmAction = document.getElementById('confirm-action');
+    const cancelConfirmation = document.getElementById('cancel-confirmation');
+    
+    confirmationTitle.textContent = 'Clear History';
+    confirmationMessage.textContent = 'Are you sure you want to clear your project viewing history? This action cannot be undone.';
+    confirmationModal.classList.remove('hidden');
+    
+    confirmAction.onclick = function() {
+      // Remove all history items
+      const historyItems = document.querySelectorAll('#project-history .bg-white');
+      historyItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.height = '0';
+        item.style.marginBottom = '0';
+        item.style.transition = 'opacity 0.3s, height 0.5s, margin 0.5s';
+      });
+      
+      setTimeout(() => {
+        historyItems.forEach(item => item.remove());
+        
+        // Add empty state message
+        const emptyState = document.createElement('div');
+        emptyState.className = 'text-center py-8';
+        emptyState.innerHTML = `
+          <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+            <i class="ri-history-line ri-xl text-gray-400"></i>
+          </div>
+          <p class="text-gray-500 text-sm">No viewing history</p>
+        `;
+        document.querySelector('#project-history .space-y-3').appendChild(emptyState);
+        
+        // Save to localStorage
+        const userData = JSON.parse(localStorage.getItem('architectUserData') || '{}');
+        userData.viewHistory = [];
+        localStorage.setItem('architectUserData', JSON.stringify(userData));
+      }, 500);
+      
+      confirmationModal.classList.add('hidden');
+    };
+    
+    cancelConfirmation.onclick = function() {
+      confirmationModal.classList.add('hidden');
+    };
+  });
+});
+</script>
+
+<script id="profile-edit-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const editProfileBtn = document.getElementById('edit-profile-btn');
+  const editProfileModal = document.getElementById('edit-profile-modal');
+  const closeEditModal = document.getElementById('close-edit-modal');
+  const profileForm = document.getElementById('profile-form');
+  
+  editProfileBtn.addEventListener('click', function() {
+    editProfileModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  closeEditModal.addEventListener('click', function() {
+    editProfileModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+  
+  profileForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const name = document.getElementById('edit-name').value;
+    const email = document.getElementById('edit-email').value;
+    const phone = document.getElementById('edit-phone').value;
+    const profession = document.getElementById('edit-profession').value;
+    
+    // Update profile display
+    document.getElementById('profile-name').textContent = name;
+    document.getElementById('profile-email').textContent = email;
+    
+    // Save to localStorage
+    const userData = JSON.parse(localStorage.getItem('architectUserData') || '{}');
+    userData.userProfile = {
+      ...userData.userProfile,
+      name,
+      email,
+      phone,
+      profession,
+      lastUpdated: new Date().toISOString()
+    };
+    localStorage.setItem('architectUserData', JSON.stringify(userData));
+    
+    // Close modal
+    editProfileModal.classList.add('hidden');
+    document.body.style.overflow = '';
+    
+    // Show success message
+    const successMessage = document.createElement('div');
+    successMessage.className = 'fixed bottom-20 left-0 right-0 mx-auto w-[80%] bg-green-100 text-green-700 p-3 rounded text-center text-sm z-50';
+    successMessage.textContent = 'Profile updated successfully';
+    document.body.appendChild(successMessage);
+    
+    setTimeout(() => {
+      successMessage.style.opacity = '0';
+      successMessage.style.transition = 'opacity 0.5s';
+      setTimeout(() => {
+        successMessage.remove();
+      }, 500);
+    }, 3000);
+  });
+});
+</script>
+
+<script id="photo-edit-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const editPhotoBtn = document.getElementById('edit-photo-btn');
+  const photoModal = document.getElementById('photo-modal');
+  const closePhotoModal = document.getElementById('close-photo-modal');
+  
+  editPhotoBtn.addEventListener('click', function() {
+    photoModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  closePhotoModal.addEventListener('click', function() {
+    photoModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+  
+  // Handle photo option buttons
+  const photoOptions = photoModal.querySelectorAll('button');
+  photoOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      // For demo purposes, we'll just close the modal
+      // In a real app, you would handle camera/gallery access
+      photoModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      
+      // Show a message
+      if (this.textContent.includes('Remove')) {
+        // Reset to default avatar
+        document.getElementById('profile-image').src = 'https://readdy.ai/api/search-image?query=generic%2520user%2520avatar%2520icon%252C%2520simple%2520silhouette%252C%2520minimal%2520design&width=96&height=96&seq=11&orientation=squarish';
+        
+        // Save to localStorage
+        const userData = JSON.parse(localStorage.getItem('architectUserData') || '{}');
+        if (userData.userProfile) {
+          userData.userProfile.photoUrl = null;
+          localStorage.setItem('architectUserData', JSON.stringify(userData));
+        }
+        
+        const successMessage = document.createElement('div');
+        successMessage.className = 'fixed bottom-20 left-0 right-0 mx-auto w-[80%] bg-green-100 text-green-700 p-3 rounded text-center text-sm z-50';
+        successMessage.textContent = 'Profile photo removed';
+        document.body.appendChild(successMessage);
+        
+        setTimeout(() => {
+          successMessage.style.opacity = '0';
+          successMessage.style.transition = 'opacity 0.5s';
+          setTimeout(() => {
+            successMessage.remove();
+          }, 500);
+        }, 3000);
+      } else {
+        const successMessage = document.createElement('div');
+        successMessage.className = 'fixed bottom-20 left-0 right-0 mx-auto w-[80%] bg-gray-100 text-gray-700 p-3 rounded text-center text-sm z-50';
+        successMessage.textContent = 'This feature is not available in the demo';
+        document.body.appendChild(successMessage);
+        
+        setTimeout(() => {
+          successMessage.style.opacity = '0';
+          successMessage.style.transition = 'opacity 0.5s';
+          setTimeout(() => {
+            successMessage.remove();
+          }, 500);
+        }, 3000);
+      }
+    });
+  });
+});
+</script>
+
+<script id="settings-interaction">
+document.addEventListener('DOMContentLoaded', function() {
+  const toggleSwitches = document.querySelectorAll('input[type="checkbox"]');
+  
+  toggleSwitches.forEach(toggle => {
+    toggle.addEventListener('change', function() {
+      // Save settings to localStorage
+      const settingId = this.id;
+      const isEnabled = this.checked;
+      
+      const userData = JSON.parse(localStorage.getItem('architectUserData') || '{}');
+      if (!userData.settings) {
+        userData.settings = {};
+      }
+      
+      userData.settings[settingId] = isEnabled;
+      localStorage.setItem('architectUserData', JSON.stringify(userData));
+    });
+  });
+  
+  // Handle account management buttons
+  const accountButtons = document.querySelectorAll('#account-settings button');
+  accountButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      if (this.textContent.includes('Sign Out')) {
+        // Show confirmation modal
+        const confirmationTitle = document.getElementById('confirmation-title');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const confirmAction = document.getElementById('confirm-action');
+        const cancelConfirmation = document.getElementById('cancel-confirmation');
+        
+        confirmationTitle.textContent = 'Sign Out';
+        confirmationMessage.textContent = 'Are you sure you want to sign out of your account?';
+        confirmationModal.classList.remove('hidden');
+        
+        confirmAction.onclick = function() {
+          // Redirect to home page
+          window.location.href = 'https://readdy.ai/home/1af11dc4-2184-4a8a-a951-f2dab4d49e13/8329ddc2-6b9a-44f0-80c3-a7f9a4846ba0';
+        };
+        
+        cancelConfirmation.onclick = function() {
+          confirmationModal.classList.add('hidden');
+        };
+      } else {
+        // For demo purposes, show a message for other buttons
+        const successMessage = document.createElement('div');
+        successMessage.className = 'fixed bottom-20 left-0 right-0 mx-auto w-[80%] bg-gray-100 text-gray-700 p-3 rounded text-center text-sm z-50';
+        successMessage.textContent = 'This feature is not available in the demo';
+        document.body.appendChild(successMessage);
+        
+        setTimeout(() => {
+          successMessage.style.opacity = '0';
+          successMessage.style.transition = 'opacity 0.5s';
+          setTimeout(() => {
+            successMessage.remove();
+          }, 500);
+        }, 3000);
+      }
+    });
+  });
+});
+</script>
+
+<script id="local-storage-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize or load user data from localStorage
+  let userData = JSON.parse(localStorage.getItem('architectUserData') || '{}');
+  
+  // Set default values if not present
+  if (!userData.userProfile) {
+    userData.userProfile = {
+      name: 'Alexander Mitchell',
+      email: 'alexander.mitchell@example.com',
+      phone: '+1 (555) 123-4567',
+      profession: 'Architect',
+      photoUrl: 'https://readdy.ai/api/search-image?query=professional%2520portrait%2520of%2520an%2520architect%252C%2520high%2520quality%252C%2520studio%2520lighting%252C%2520neutral%2520background%252C%2520business%2520attire%252C%2520confident%2520expression%252C%2520architectural%2520elements%2520in%2520background&width=96&height=96&seq=1&orientation=squarish',
+      lastVisit: new Date().toISOString(),
+      lastUpdated: new Date().toISOString()
+    };
+  }
+  
+  if (!userData.savedProjects) {
+    userData.savedProjects = [];
+    // We'll use the existing UI projects as defaults
+  }
+  
+  if (!userData.viewHistory) {
+    userData.viewHistory = [];
+    // We'll use the existing UI history as defaults
+  }
+  
+  if (!userData.settings) {
+    userData.settings = {
+      'notify-projects': true,
+      'notify-designs': true,
+      'notify-offers': false,
+      'save-history': true,
+      'data-usage': true
+    };
+  }
+  
+  // Update localStorage with initialized data
+  localStorage.setItem('architectUserData', JSON.stringify(userData));
+  
+  // Update UI with stored data
+  if (userData.userProfile) {
+    document.getElementById('profile-name').textContent = userData.userProfile.name;
+    document.getElementById('profile-email').textContent = userData.userProfile.email;
+    if (userData.userProfile.photoUrl) {
+      document.getElementById('profile-image').src = userData.userProfile.photoUrl;
+    }
+    
+    // Update form fields
+    document.getElementById('edit-name').value = userData.userProfile.name;
+    document.getElementById('edit-email').value = userData.userProfile.email;
+    document.getElementById('edit-phone').value = userData.userProfile.phone || '';
+    document.getElementById('edit-profession').value = userData.userProfile.profession || '';
+  }
+  
+  // Update settings toggles
+  if (userData.settings) {
+    for (const [key, value] of Object.entries(userData.settings)) {
+      const toggle = document.getElementById(key);
+      if (toggle) {
+        toggle.checked = value;
+      }
+    }
+  }
+  
+  // Record this visit
+  userData.userProfile.lastVisit = new Date().toISOString();
+  localStorage.setItem('architectUserData', JSON.stringify(userData));
+});
+</script>
+</body>
+</html>
